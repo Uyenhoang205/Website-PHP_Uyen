@@ -11,7 +11,7 @@ if (!empty($_POST['login'])) {
     $user = isset($_POST['username']) ? $_POST['username'] : '';
  
     if(strlen($_POST['password']) < 8) {
-        $error = 'Mật khẩu phải chứa 8 ký tự trở lên';
+        $error = '８文字以上のパスワードを入力してください。';
     }
     
     if (empty($error)) {
@@ -19,7 +19,7 @@ if (!empty($_POST['login'])) {
         $password = $_POST['password'];
 
         $conn = mysqli_connect('localhost', 'root', '');
-        mysqli_select_db($conn, 'quan_ly_dien_thoai');
+        mysqli_select_db($conn, 'mobile_management');
         $sql = "
             SELECT user.id, user_info.user_name FROM user
             LEFT JOIN user_info ON user.id = user_info.user_id
@@ -30,7 +30,7 @@ if (!empty($_POST['login'])) {
             $_SESSION['user_info'] = $user_info;
             header ("location:List.php");
         } else {
-            $error = "Tài khoản hoặc mật khẩu không đúng";
+            $error = "ユーザー名またはパスワードが間違っています";
         }
     }
 }
@@ -110,24 +110,24 @@ if (!empty($_POST['login'])) {
     <div class="bg-img">
         <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
             <div class="content">
-                <header><?php echo "Đăng nhập"; ?></header>
+                <header><?php echo "ログイン"; ?></header>
                 <div>
                     <div>
-                        <input name="username" type="text" value="<?=$user?>" placeholder="<?php echo "Tên đăng nhập"; ?>">
+                        <input name="username" type="text" value="<?=$user?>" placeholder="<?php echo "ユーザー名"; ?>">
                     </div>
                     <br>
                     <div>
-                        <input name="password" type="password" value="<?=$password?>" placeholder="<?php echo "Mật khẩu"; ?>">
+                        <input name="password" type="password" value="<?=$password?>" placeholder="<?php echo "パスワード"; ?>">
                     </div>
                 </div>
                 <br>
                 <br>
-                <div class="forgot"><a href=#>Quên mật khẩu?</a></div>
+                <div class="forgot"><a href=#>パスワードを忘れました?</a></div>
                 <br>
-                <div class="no_account">Bạn chưa có tài khoản? <a href="Register.php">ĐĂNG KÝ</a></div>
+                <div class="no_account">IDをお持もちでない方： <a href="Register.php">登録</a></div>
                 <br>
                 <div>
-                    <input type="submit" name="login" value="ĐĂNG NHẬP">
+                    <input type="submit" name="login" value="登録">
                 </div>
                 <div class = "mes-error">
                     <span><?= $error ?></span>
