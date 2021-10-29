@@ -9,7 +9,7 @@ $list_dien_thoai = [];
 $user_id = $_SESSION['user_info']['id'];
 
 $conn = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($conn, 'quan_ly_dien_thoai');
+mysqli_select_db($conn, 'mobile_management');
 $sql = "
     SELECT mobile.id, mobile.mobile_name, mobile.price, mobile.image, mobile.info FROM mobile
     INNER JOIN user_mobile ON mobile.id = user_mobile.mobile_id
@@ -56,7 +56,7 @@ if ($order_by == 1) {
     $sql .= " ORDER BY mobile.price DESC";
 }
 
-//Dem tong so ban ghi
+//count the total of the record
 $sql_count = "SELECT count(*) AS total FROM mobile
     INNER JOIN user_mobile ON mobile.id = user_mobile.mobile_id
     " . $where;
@@ -75,7 +75,7 @@ $sql .= " LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
 $list_dien_thoai = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-//Select chon ten hang dien thoai
+//Select mobile maker's name
 $sql2 = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
 $result2 = mysqli_query($conn, $sql2);
 $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
@@ -212,16 +212,16 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     <header><?php include_once('Header.php'); ?></header>
 
     <main>
-        <h1>Danh sách điện thoại</h1>
+        <h1>携帯の一覧i</h1>
         <div class="search">
             <form action="" method="GET">
-                <label>Tên điện thoại: </label>
+                <label>携帯名: </label>
                 <input type="text" name="mobile_name">
                 <label>Khoảng giá: </label>
                 <input type="number" name="start_price" class="khoang_gia"> ~ <input type="number" name="end_price" class="khoang_gia">
-                <label>Hãng điện thoại: </label>
+                <label>種類: </label>
                 <select name="mobile_category" class="select">
-                    <option selected value="">Chọn hãng điện thoại</option>
+                    <option selected value="">種類を選択する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
                         $selected = $category_id == $category['id'] ? 'selected' : '';
@@ -251,14 +251,14 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             <?php } ?>
         </div>
         <div class="add">
-            <a href="Add.php">Thêm điện thoại</a>
+            <a href="Add.php">追加</a>
         </div>
         <br>
         <br>
         <div class="phan_trang">
             <?php
             if ($current_page >= 1 && $total_page >= 1) {
-                echo "<a class='previous' href='" . $url . "page=" . ($current_page - 1) . "'>Trước</a>";
+                echo "<a class='previous' href='" . $url . "page=" . ($current_page - 1) . "'>前へ</a>";
             }
             for ($i = 1; $i <= $total_page; $i++) {
                 if ($current_page == $i) {
@@ -268,7 +268,7 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 }
             }
             if ($current_page <= $total_page && $total_page >= 1) {
-                echo "<a class='next' href='" . $url . "page=" . ($current_page + 1) . "'>Sau</a>";
+                echo "<a class='next' href='" . $url . "page=" . ($current_page + 1) . "'>次へ</a>";
             }
             ?>
         </div>
