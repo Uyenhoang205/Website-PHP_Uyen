@@ -28,7 +28,7 @@
 
 <body>
     <footer>
-        <p><?= "Tác giả: Uyên Hoàng"; ?></p>
+        <p><?= "作成者: Uyen Hoang"; ?></p>
         <p>Email: <a href=#>uyenhoang205@gmail.com</a></p>
     </footer>
 </body>
