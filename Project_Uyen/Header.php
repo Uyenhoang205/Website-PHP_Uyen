@@ -73,13 +73,13 @@
 <body>
     <header>
         <form action="" method="POST" enctype="multipart/form-data">
-            <a class="logout" name="logout" href="Logout.php"><?= "Đăng xuất"; ?></a>
+            <a class="logout" name="logout" href="Logout.php"><?= "ログアウト"; ?></a>
             <ul>
-                <li><a href=#><?= "Điện thoại"; ?></a></li>
-                <li><a href=#><?= "Laptop"; ?></a></li>
-                <li><a href=#><?= "Tablet"; ?></a></li>
-                <li><a href=#><?= "Phụ kiện"; ?></a></li>
-                <li><a href=#><?= "Đồng hồ thông minh"; ?></a></li>
+                <li><a href=#><?= "携帯"; ?></a></li>
+                <li><a href=#><?= "ノートパソコン"; ?></a></li>
+                <li><a href=#><?= "タブレット"; ?></a></li>
+                <li><a href=#><?= "周辺機器"; ?></a></li>
+                <li><a href=#><?= "スマートウォッチ"; ?></a></li>
             </ul>
         </form>
     </header>
