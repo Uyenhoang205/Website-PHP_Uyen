@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_info'])) {
 $list_mobile_category = [];
 
 $conn = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($conn, 'quan_ly_dien_thoai');
+mysqli_select_db($conn, 'phone_management');
 $sql = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
 $result = mysqli_query($conn, $sql);
 $list_mobile_category = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -27,23 +27,23 @@ if (!empty($_POST['upload'])) {
     $info = isset($_POST['info']) ? $_POST['info'] : '';
 
     if (empty($_POST['name'])) {
-        $error = "Tên điện thoại buộc nhập";
+        $error = "携帯名の入力が必要です。";
     }
 
     if (empty($_POST['category_mobile'])) {
-        $error = "Hãng điện thoại buộc nhập";
+        $error = "種類の入力が必要です。";
     }
 
     if (empty($_POST['price'])) {
-        $error = "Giá điện thoại buộc nhập";
+        $error = "値段の入力が必要です。";
     }
 
     if (empty($_POST['picture'])) {
-        $error = "Hãy đăng ảnh điện thoại";
+        $error = "写真をアップロードしてください。";
     }
 
     if (empty($_POST['name']) && empty($_POST['category_mobile']) && empty($_POST['price']) && empty($_POST['picture'])) {
-        $error = "Hãy nhập thông tin điện thoại";
+        $error = "携帯の情報を入力してください。";
     }
 
     if (empty($error)) {
@@ -161,16 +161,16 @@ if (isset($_POST['back'])) {
     <header><?php include_once('Header.php'); ?></header>
 
     <main>
-        <h2 class="title">Thêm điện thoại</h2>
+        <h2 class="title">携帯の追加</h2>
         <form class="content" method="POST" enctype="multipart/form-data" action="">
             <div>
-                <label>Tên điện thoại: </label>
+                <label>携帯名: </label>
                 <input type="text" name="name">
             </div>
             <div>
-                <label>Hãng điện thoại: </label>
+                <label>種類: </label>
                 <select name="category_mobile" class="select">
-                    <option selected value="">Chọn hãng điện thoại</option>
+                    <option selected value="">種類を入力する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
                         echo "<option value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
@@ -179,20 +179,20 @@ if (isset($_POST['back'])) {
                 </select>
             </div>
             <div>
-                <label>Giá tiền: </label>
+                <label>値段: </label>
                 <input type="number" name="price">
             </div>
             <div>
-                <label>Chọn ảnh để upload: </label>
+                <label>写真: </label>
                 <input type="file" class="picture" name="picture">
             </div>
             <div>
-                <label>Thông tin khuyến mại: </label>
+                <label>割引情報: </label>
                 <input type="text" name="info">
             </div>
             <br>
-            <input type="submit" class="upload" name="upload" value="Đăng tải">
-            <input type="submit" class="back" name="back" value="Quay lại">
+            <input type="submit" class="upload" name="upload" value="アップロード">
+            <input type="submit" class="back" name="back" value="戻る">
         </form>
         <div class="mes-error">
             <span><?= $error ?></span>
