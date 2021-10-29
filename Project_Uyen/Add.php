@@ -170,7 +170,7 @@ if (isset($_POST['back'])) {
             <div>
                 <label>種類: </label>
                 <select name="category_mobile" class="select">
-                    <option selected value="">種類を入力する</option>
+                    <option selected value="">種類を選択する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
                         echo "<option value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
@@ -191,7 +191,7 @@ if (isset($_POST['back'])) {
                 <input type="text" name="info">
             </div>
             <br>
-            <input type="submit" class="upload" name="upload" value="アップロード">
+            <input type="submit" class="upload" name="upload" value="追加">
             <input type="submit" class="back" name="back" value="戻る">
         </form>
         <div class="mes-error">
