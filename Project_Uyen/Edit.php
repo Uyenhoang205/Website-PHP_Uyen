@@ -7,12 +7,12 @@ if (!isset($_SESSION['user_info'])) {
 $error = "";
 $mobile_id = isset($_GET['id']) ? $_GET['id'] : '';
 if (empty($mobile_id)) {
-    die('Không tìm được thông tin điện thoại');
+    die('携帯の情報を見つけられません。');
 }
 
-//Query gia tri tu file List.php vao
+//Query value from file List.php
 $conn = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($conn, 'quan_ly_dien_thoai');
+mysqli_select_db($conn, 'mobile_managementi');
 $sql = "
     SELECT * FROM mobile
     WHERE mobile.id = $mobile_id
@@ -53,7 +53,7 @@ if (isset($_POST['back'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>編集</title>
     <style>
         * {
             font-family: 'Times New Roman', Times, serif;
@@ -120,16 +120,16 @@ if (isset($_POST['back'])) {
     <header><?php include_once('Header.php'); ?></header>
     
     <main>
-        <h2 class="title">Chỉnh sửa điện thoại</h2>
+        <h2 class="title">携帯情報の編集</h2>
         <form class="content" method="POST" enctype="multipart/form-data" action="">
             <div>
-                <label>Tên điện thoại: </label>
+                <label>携帯名: </label>
                 <input type="text" name="name" value="<?= $data['mobile_name'] ?>">
             </div>
             <div>
-                <label>Hãng điện thoại: </label>
+                <label>種類: </label>
                 <select name="category_mobile" class="select">
-                    <option selected value="">Chọn hãng điện thoại</option>
+                    <option selected value="">種類を選択する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
                         $selected = $data['category_id'] == $category['id'] ? 'selected' : '';
@@ -139,16 +139,16 @@ if (isset($_POST['back'])) {
                 </select>
             </div>
             <div>
-                <label>Giá tiền: </label>
+                <label>値段: </label>
                 <input type="number" name="price" value="<?= $data['price'] ?>">
             </div>
             <div>
-                <label>Thông tin khuyến mại: </label>
+                <label>割引情報: </label>
                 <input type="text" name="info" value="<?= $data['info'] ?>">
             </div>
             <br>
-            <input type="submit" class="update" name="update" value="Cập nhật">
-            <input type="submit" class="back" name="back" value="Quay lại">
+            <input type="submit" class="update" name="update" value="更新">
+            <input type="submit" class="back" name="back" value="戻る">
         </form>
         <div class="mes-error">
             <span><?= $error ?></span>
