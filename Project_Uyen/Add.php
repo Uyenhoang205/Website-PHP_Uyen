@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_info'])) {
 $list_mobile_category = [];
 
 $conn = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($conn, 'phone_management');
+mysqli_select_db($conn, 'mobile_management');
 $sql = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
 $result = mysqli_query($conn, $sql);
 $list_mobile_category = mysqli_fetch_all($result, MYSQLI_ASSOC);
