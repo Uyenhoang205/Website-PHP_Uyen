@@ -14,11 +14,11 @@ $success = '';
 
 if (!empty($_POST['register'])) {
     if (strlen($_POST['psw']) < 8 && strlen($_POST['again']) < 8) {
-        $error = "Mật khẩu phải từ 8 ký tự trở lên";
+        $error = "８文字以上のパスワードを入力してください。";
     }
 
     if ($_POST['psw'] != $_POST['again']) {
-        $error = "Mật khẩu không đồng nhất. Vui lòng nhập lại";
+        $error = "入力したパスワードが同じではありません。再度入力してください。";
     }
 
     $name = $_POST['name'];
@@ -28,13 +28,13 @@ if (!empty($_POST['register'])) {
     $psw = $_POST['psw'];
 
     $conn = mysqli_connect('localhost', 'root', '');
-    mysqli_select_db($conn, 'quan_ly_dien_thoai');
+    mysqli_select_db($conn, 'mobile_management');
 
     $sqla = "SELECT user.user FROM user WHERE user.user = '$user'";
     $result1 = mysqli_query($conn, $sqla);
     $data1 = mysqli_fetch_assoc($result1);
     if (!empty($data1)) {
-        $error = "Tên đăng nhập đã có người sử dung, vui lòng chọn tên đăng nhập khác";
+        $error = "このユーザー名が存在していますので、他の名前を入力してください。";
     }
 
     $sqlb = "SELECT user_info.email FROM user_info WHERE user_info.email = '$mail'";
