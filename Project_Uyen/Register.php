@@ -41,7 +41,7 @@ if (!empty($_POST['register'])) {
     $result2 = mysqli_query($conn, $sqlb);
     $data2 = mysqli_fetch_assoc($result2);
     if (!empty($data2)) {
-        $error = "Email đã có người sử dung, vui lòng chọn email khác để đăng ký";
+        $error = "このメールが利用されていますので、他のメールを使ってください。";
     }
 
     if (empty($error)) {
@@ -52,19 +52,19 @@ if (!empty($_POST['register'])) {
         $psw = $_POST['psw'];
 
         $conn = mysqli_connect('localhost', 'root', '');
-        mysqli_select_db($conn, 'quan_ly_dien_thoai');
+        mysqli_select_db($conn, 'mobile_management');
         $sql1 = "INSERT INTO user (user, password) VALUES ('$user', '$psw')";
         $result = mysqli_query($conn, $sql1);
         $user_id = mysqli_insert_id($conn);
         $sql2 = "INSERT INTO user_info (user_id, name, email, birthday) VALUES ('$user_id', '$name', '$email', '$bday')";
         $result = mysqli_query($conn, $sql2);
         mysqli_close($conn);
-        $success = "Đăng ký thành công " . " <div><a href = 'Login.php'>Login</a></div>";
+        $success = "登録できました。　" . " <div><a href = 'Login.php'>Login</a></div>";
     }
 }
 
 if (mysqli_query($conn, $sql)) {
-    echo "Đăng ký thành công";
+    echo "登録できました。　";
 } else {
     echo "Error: " . $sql . "<br>" . mysqli_error($conn);
 }
@@ -79,7 +79,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng ký tài khoản</title>
+    <title>登録n</title>
     <style>
         * {
             font-family: 'Times New Roman', Times, serif;
@@ -161,32 +161,32 @@ mysqli_close($conn);
     <div class="bg-img">
         <form action="" method="POST" enctype="multipart/form-data">
             <div class="content">
-                <h2>Đăng ký tài khoản</h2>
+                <h2>ユーザー登録</h2>
                 <div>
-                    <label>Họ và tên:</label>
-                    <input class="name" name="name" type="text" placeholder="Nhập họ và tên" value="" required>
+                    <label>氏名:</label>
+                    <input class="name" name="name" type="text" placeholder="氏名を入力する" value="" required>
                 </div>
                 <div>
-                    <label>Tài khoản:</label>
-                    <input class="user" name="user" type="text" placeholder="Nhập tên tài khoản" value="" required>
+                    <label>ユーザー名:</label>
+                    <input class="user" name="user" type="text" placeholder="ユーザー名を入力する" value="" required>
                 </div>
                 <div>
-                    <label>Email:</label>
-                    <input class="mail" name="mail" type="mail" placeholder="Nhập tên địa chỉ email" value="" required>
+                    <label>メール:</label>
+                    <input class="mail" name="mail" type="mail" placeholder="メールアドレスを入力する" value="" required>
                 </div>
                 <div>
-                    <label>Ngày tháng năm sinh:</label>
-                    <input class="bday" name="bday" type="date" placeholder="Nhập ngày tháng năm sinh" value="" required>
+                    <label>生年月日:</label>
+                    <input class="bday" name="bday" type="date" placeholder="生年月日を入力する" value="" required>
                 </div>
                 <div>
-                    <label>Mật khẩu:</label>
-                    <input class="psw" name="psw" type="password" value="" placeholder="Nhập mật khẩu" required>
+                    <label>パスワード:</label>
+                    <input class="psw" name="psw" type="password" value="" placeholder="パスワードを入力する" required>
                 </div>
                 <div>
-                    <label>Nhập lại mật khẩu:</label>
-                    <input class="again" name="again" type="password" value="" placeholder="Nhập lại mật khẩu" required>
+                    <label>パスワードの再入力:</label>
+                    <input class="again" name="again" type="password" value="" placeholder="パスワードをもう一回入力する" required>
                 </div>
-                <input class="register" type="submit" name="register" value="Đăng ký">
+                <input class="register" type="submit" name="register" value="登録">
 
                 <div class="mes-error">
                     <span><?= $error ?></span>
