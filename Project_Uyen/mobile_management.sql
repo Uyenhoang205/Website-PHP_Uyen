@@ -30,7 +30,7 @@ USE `mobile_management`;
 -- Table structure for table `mobile`
 --
 
-CREATE TABLE `dien_thoai` (
+CREATE TABLE `mobile` (
   `id` int(11) NOT NULL COMMENT 'mobile id',
   `mobile_name` varchar(255) NOT NULL COMMENT 'mobile name',
   `classification` varchar(255) NOT NULL COMMENT 'mobile classification',
@@ -119,8 +119,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `mobile`;
 CREATE TABLE `mobile`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'mobile's id',
-  `mobile_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'mobile's name',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'mobile id',
+  `mobile_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'mobile name',
   `category_id` int(255) NOT NULL COMMENT 'mobile classification',
   `price` bigint(20) NOT NULL COMMENT 'mobile price',
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'image link',
