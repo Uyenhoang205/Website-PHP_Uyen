@@ -243,7 +243,7 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                 <div class="phoneList">
                     <img class="img" src="<?= $item['image'] ?>">
                     <p class='name'><b><?= $item['mobile_name'] ?></b></p>
-                    <p class='price'><?= number_format($item['price']) ?> JPY</p>
+                    <p class='price'><?= number_format($item['price']) ?> 円</p>
                     <a class='edit' href="Edit.php?id=<?= $item['id'] ?>">編集</a>
                     <a class='delete' href="Delete.php?id=<?= $item['id'] ?>">削除</a>
                     <p class='info'><?= $item['info'] ?></p>
