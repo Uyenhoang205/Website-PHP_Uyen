@@ -5,7 +5,7 @@ if (!isset($_SESSION['user_info'])) {
 }
 
 $url = "List.php?";
-$list_dien_thoai = [];
+$list_mobile = [];
 $user_id = $_SESSION['user_info']['id'];
 
 $conn = mysqli_connect('localhost', 'root', '');
@@ -73,7 +73,7 @@ if ($current_page > $total_page) {
 $offset = ($current_page - 1) * $limit;
 $sql .= " LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
-$list_dien_thoai = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$list_mobile = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 //Select mobile maker's name
 $sql2 = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
@@ -87,7 +87,7 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài tập PHP4_Uyen</title>
+    <title>ホームページ</title>
     <style>
         * {
             font-family: 'Times New Roman', Times, serif;
@@ -186,7 +186,7 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
             background-color: #EAE6E6;
         }
 
-        .phan_trang {
+        .paging {
             text-align: center;
             clear: both;
             height: 30px;
@@ -212,13 +212,13 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
     <header><?php include_once('Header.php'); ?></header>
 
     <main>
-        <h1>携帯の一覧i</h1>
+        <h1>携帯の一覧</h1>
         <div class="search">
             <form action="" method="GET">
                 <label>携帯名: </label>
                 <input type="text" name="mobile_name">
-                <label>Khoảng giá: </label>
-                <input type="number" name="start_price" class="khoang_gia"> ~ <input type="number" name="end_price" class="khoang_gia">
+                <label>価格帯: </label>
+                <input type="number" name="start_price" class="range"> ~ <input type="number" name="end_price" class="range">
                 <label>種類: </label>
                 <select name="mobile_category" class="select">
                     <option selected value="">種類を選択する</option>
@@ -229,23 +229,23 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
                     }
                     ?>
                 </select>
-                <label>Sắp xếp theo: </label>
+                <label>並び順: </label>
                 <select name="sort" class="sort">
-                    <option <?= $order_by == 1 ? 'selected' : ''; ?> value=1>Giá tiền từ thấp đến cao</option>
-                    <option <?= $order_by == 2 ? 'selected' : ''; ?> value=2>Giá tiền từ cao đến thấp</option>
+                    <option <?= $order_by == 1 ? 'selected' : ''; ?> value=1>安い順</option>
+                    <option <?= $order_by == 2 ? 'selected' : ''; ?> value=2>高い順</option>
                 </select>
-                <input type="submit" name="submit" class="submit" value="Tìm kiếm">
+                <input type="submit" name="submit" class="submit" value="検索">
             </form>
         </div>
         <br>
         <div class="list">
-            <?php foreach ($list_dien_thoai as $item) { ?>
+            <?php foreach ($list_mobile as $item) { ?>
                 <div class="phoneList">
                     <img class="img" src="<?= $item['image'] ?>">
                     <p class='name'><b><?= $item['mobile_name'] ?></b></p>
                     <p class='price'><?= number_format($item['price']) ?> VND</p>
-                    <a class='edit' href="Edit.php?id=<?= $item['id'] ?>">Chỉnh sửa</a>
-                    <a class='delete' href="Delete.php?id=<?= $item['id'] ?>">Xoá</a>
+                    <a class='edit' href="Edit.php?id=<?= $item['id'] ?>">編集</a>
+                    <a class='delete' href="Delete.php?id=<?= $item['id'] ?>">削除</a>
                     <p class='info'><?= $item['info'] ?></p>
                 </div>
             <?php } ?>
@@ -255,7 +255,7 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
         </div>
         <br>
         <br>
-        <div class="phan_trang">
+        <div class="paging">
             <?php
             if ($current_page >= 1 && $total_page >= 1) {
                 echo "<a class='previous' href='" . $url . "page=" . ($current_page - 1) . "'>前へ</a>";
