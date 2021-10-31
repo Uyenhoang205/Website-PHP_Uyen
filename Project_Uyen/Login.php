@@ -127,7 +127,7 @@ if (!empty($_POST['login'])) {
                 <div class="no_account">IDをお持もちでない方： <a href="Register.php">登録</a></div>
                 <br>
                 <div>
-                    <input type="submit" name="login" value="登録">
+                    <input type="submit" name="login" value="ログイン">
                 </div>
                 <div class = "mes-error">
                     <span><?= $error ?></span>
