@@ -20,7 +20,7 @@ $sql = "
 $result = mysqli_query($conn, $sql);
 $data = mysqli_fetch_assoc($result);
 
-//Query gia tri category_name vao select
+//Query value category_name into select
 $sql1 = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
 $result1 = mysqli_query($conn, $sql1);
 $list_mobile_category = mysqli_fetch_all($result1, MYSQLI_ASSOC);
