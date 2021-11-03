@@ -12,7 +12,7 @@ if (empty($mobile_id)) {
 
 //Query value from file List.php
 $conn = mysqli_connect('localhost', 'root', '');
-mysqli_select_db($conn, 'mobile_managementi');
+mysqli_select_db($conn, 'mobile_management');
 $sql = "
     SELECT * FROM mobile
     WHERE mobile.id = $mobile_id
