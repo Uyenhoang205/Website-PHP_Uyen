@@ -5,7 +5,9 @@ if (!isset($_SESSION['user_info'])) {
 }
 
 $url = "List.php?";
-$list_mobile = [];
+if (empty($list_mobile)) {
+    $list_mobile = [];
+}
 $user_id = $_SESSION['user_info']['id'];
 
 $conn = mysqli_connect('localhost', 'root', '');
@@ -56,6 +58,12 @@ if ($order_by == 1) {
     $sql .= " ORDER BY mobile.price DESC";
 }
 
+if (!empty($_GET['submit'])) { 
+$mobile_name = isset($_GET['mobile_name']) ? $_GET['mobile_name'] : '';
+$start_price = isset($_GET['start_price']) ? $_GET['start_price'] : '';
+$end_price = isset($_GET['end_price']) ? $_GET['end_price'] : '';
+}
+
 //count the total of the record
 $sql_count = "SELECT count(*) AS total FROM mobile
     INNER JOIN user_mobile ON mobile.id = user_mobile.mobile_id
@@ -74,6 +82,7 @@ $offset = ($current_page - 1) * $limit;
 $sql .= " LIMIT $offset, $limit";
 $result = mysqli_query($conn, $sql);
 $list_mobile = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
 
 //Select mobile maker's name
 $sql2 = "SELECT mobile_category.id, mobile_category.category_name FROM mobile_category";
@@ -216,16 +225,16 @@ $list_mobile_category = mysqli_fetch_all($result2, MYSQLI_ASSOC);
         <div class="search">
             <form action="" method="GET">
                 <label>携帯名: </label>
-                <input type="text" name="mobile_name">
+                <input type="text" name="mobile_name" value="<?=$mobile_name?>">
                 <label>価格帯: </label>
-                <input type="number" name="start_price" class="range"> ~ <input type="number" name="end_price" class="range">
+                <input type="number" name="start_price" class="range" value="<?=$start_price?>"> ~ <input type="number" name="end_price" class="range" value="<?=$end_price?>">
                 <label>種類: </label>
                 <select name="mobile_category" class="select">
                     <option selected value="">種類を選択する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
-                        $selected = $category_id == $category['id'] ? 'selected' : '';
-                        echo "<option value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
+                        $selected = $mobile_category == $category['id'] ? 'selected' : '';
+                        echo "<option $selected value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
                     }
                     ?>
                 </select>
