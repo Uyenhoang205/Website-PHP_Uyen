@@ -14,17 +14,17 @@ $list_mobile_category = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 $error = '';
 $name = '';
-$category_id = '';
+$category_mobile = '';
 $price = '';
 $file_upload = '';
 $info = '';
 
 if (!empty($_POST['upload'])) { 
     $name = isset($_POST['name']) ? $_POST['name'] : '';
-    $category_id = isset($_POST['category_mobile']) ? $_POST['category_mobile'] : '';
+    $category_mobile = isset($_POST['category_mobile']) ? $_POST['category_mobile'] : '';
     $price = isset($_POST['price']) ? $_POST['price'] : '';
-    $file_upload = isset($_POST['picture']) ? $_POST['picture'] : '';
     $info = isset($_POST['info']) ? $_POST['info'] : '';
+    $file_upload = isset($_FILES['picture']) ? $_FILES['picture'] : '';
 
     if (empty($_POST['name'])) {
         $error = "携帯名の入力が必要です。";
@@ -38,25 +38,27 @@ if (!empty($_POST['upload'])) {
         $error = "値段の入力が必要です。";
     }
 
-    if (empty($_POST['picture'])) {
+    if (empty($_FILES['picture'])) {
         $error = "写真をアップロードしてください。";
     }
 
-    if (empty($_POST['name']) && empty($_POST['category_mobile']) && empty($_POST['price']) && empty($_POST['picture'])) {
+    if (empty($_POST['name']) && empty($_POST['category_mobile']) && empty($_POST['price']) && empty($_FILES['picture'])) {
         $error = "携帯の情報を入力してください。";
     }
 
     if (empty($error)) {
         $target_dir = "picture/";
-        $file_upload = $target_dir . basename($_FILES['picture']['name']);
+        $file_upload = $dir . basename($_FILES['picture']['name']);
         move_uploaded_file($_FILES['picture']['tmp_name'], $file_upload);
+    
         $name = $_POST['name'];
-        $category_id = $_POST['category_mobile'];
+        $category_mobile = $_POST['category_mobile'];
         $price = $_POST['price'];
         $info = $_POST['info'];
+        // $picture = $_FILES['picture'];
         $sql1 = "
             INSERT INTO mobile(mobile_name, category_id, price, image, info)
-            VALUES ('$name', '$category_id', '$price', '$file_upload', '$info')
+            VALUES ('$name', '$category_mobile', '$price', '$file_upload', '$info')
         ";
         $result = mysqli_query($conn, $sql1);
         if ($result) {
@@ -165,30 +167,31 @@ if (isset($_POST['back'])) {
         <form class="content" method="POST" enctype="multipart/form-data" action="">
             <div>
                 <label>携帯名: </label>
-                <input type="text" name="name">
+                <input type="text" name="name" value="<?=$name?>">
             </div>
             <div>
                 <label>種類: </label>
-                <select name="category_mobile" class="select">
-                    <option selected value="">種類を選択する</option>
+                <select name="category_mobile" class="select" value="<?=$category_id?>">
+                    <option selected>種類を選択する</option>
                     <?php
                     foreach ($list_mobile_category as $category) {
-                        echo "<option value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
+                        $selected = $category_mobile == $category['id'] ? 'selected' : '';
+                        echo "<option $selected value='" . $category['id'] . "'>" . $category['category_name'] . "</option>";
                     }
                     ?>
                 </select>
             </div>
             <div>
                 <label>値段: </label>
-                <input type="number" name="price">
+                <input type="number" name="price" value="<?=$price?>">
             </div>
             <div>
                 <label>写真: </label>
-                <input type="file" class="picture" name="picture">
+                <input type="file" class="picture" name="picture" value="<?=$file_upload?>">
             </div>
             <div>
                 <label>割引情報: </label>
-                <input type="text" name="info">
+                <input type="text" name="info" value="<?=$info?>">
             </div>
             <br>
             <input type="submit" class="upload" name="upload" value="追加">
